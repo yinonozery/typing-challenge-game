@@ -1,0 +1,77 @@
+<main>
+  <div class="is-flex is-flex-direction-column is-vcentered container">
+    <div class="has-text-centered m-3" *ngIf="this.randomText === ''">
+      <div class="lds-ring"><div></div></div>
+    </div>
+    <div class="card-content" *ngIf="this.randomText !== ''">
+      <nav class="level is-justify-content-space-around">
+        <div>
+          <p class="heading has-text-centered">Timer</p>
+          <p class="title has-text-centered fixed-width">
+            {{ this.timer.toFixed(1) }}
+          </p>
+        </div>
+        <div>
+          <p class="heading has-text-centered">Score</p>
+          <p class="title has-text-centered">{{ this.score.toFixed(1) }}</p>
+        </div>
+      </nav>
+      <div class="m-3">
+        <span *ngFor="let c of randomText.split(''); let i = index">
+          <span [class]="getColor(c, textEntered[i])">{{ c }}</span>
+        </span>
+      </div>
+      <div class="field has-addons">
+        <input
+          [class]="
+            this.randomText === this.textEntered
+              ? 'input is-success'
+              : 'input is-warning'
+          "
+          type="text"
+          placeholder="Type here..."
+          (input)="onInput($event)"
+          [readonly]="this.randomText === this.textEntered"
+          #userInput
+        />
+        <div class="control is-flex is-align-items-center ml-2">
+          <button
+            (click)="this.textInput.nativeElement.value = ''"
+            class="delete is-small"
+            [disabled]="this.textEntered === this.randomText"
+          ></button>
+        </div>
+      </div>
+      <div class="has-text-centered">
+        <button
+          class="button is-success is-light"
+          (click)="this.nextQuote()"
+          [disabled]="this.textEntered !== this.randomText"
+        >
+          Next
+        </button>
+        <button
+          class="button is-warning is-light ml-3"
+          (click)="this.resetHandler()"
+          [disabled]="this.textEntered === this.randomText"
+        >
+          Reset Game
+        </button>
+        <div
+          [class]="this.maxWaitReached ? 'modal is-active' : 'modal is-clipped'"
+        >
+          <div class="modal-background"></div>
+          <div class="modal-content">
+            <p>
+              Max time reached! <span class="has-text-danger">You lost.</span>
+            </p>
+            <button class="button is-primary mt-5" (click)="this.gameInit()">
+              Start Again
+            </button>
+          </div>
+          <button class="modal-close is-large" aria-label="close"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
