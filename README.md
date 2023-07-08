@@ -32,4 +32,4 @@ CSS
 ```
 
 ## Deployment
-You can try out the Typing Challenge Game by visiting the live demo <a href="">here</a> <img src="https://user-images.githubusercontent.com/74764366/218328226-f06c59a2-3c9a-4800-96a0-2c1b2f9476bf.png" width="20" />.
+You can try out the Typing Challenge Game by visiting the live demo <a href="https://typing-game-challenge.vercel.app/">here <img src="https://user-images.githubusercontent.com/74764366/218328226-f06c59a2-3c9a-4800-96a0-2c1b2f9476bf.png" width="20" /></a>.
