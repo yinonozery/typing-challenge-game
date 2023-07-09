@@ -1,10 +1,22 @@
 <main>
   <div class="is-flex is-flex-direction-column is-vcentered container">
-    <div class="has-text-centered m-3" *ngIf="this.randomText === ''">
+    <div
+      class="is-flex is-flex-direction-column is-align-items-center my-5"
+      *ngIf="this.randomText === ''"
+    >
+      <!-- Show loading spinner if randomText is empty -->
       <div class="lds-ring"><div></div></div>
+      Loading...
     </div>
     <div class="card-content" *ngIf="this.randomText !== ''">
+      <!-- Show game content if randomText is not empty -->
+      <progress
+        class="progress is-primary"
+        [value]="currQuote"
+        [max]="maxQuotes"
+      ></progress>
       <nav class="level is-justify-content-space-around">
+        <!-- Display timer and score -->
         <div>
           <p class="heading has-text-centered">Timer</p>
           <p class="title has-text-centered">
@@ -18,7 +30,9 @@
       </nav>
       <div class="m-3">
         <span *ngFor="let c of randomText.split(''); let i = index">
+          <!-- Loop through each character of the randomText -->
           <span [class]="getColor(c, textEntered[i])">{{ c }}</span>
+          <!-- Apply CSS class based on getColor() method -->
         </span>
       </div>
       <div class="field has-addons">
@@ -36,7 +50,7 @@
         />
         <div class="control is-flex is-align-items-center ml-2">
           <button
-            (click)="this.textInput.nativeElement.value = ''"
+            (click)="this.deleteInput()"
             class="delete is-small"
             [disabled]="this.textEntered === this.randomText"
           ></button>
@@ -60,10 +74,40 @@
         <div
           [class]="this.maxWaitReached ? 'modal is-active' : 'modal is-clipped'"
         >
+          <!-- Show modal if maxWaitReached is true -->
           <div class="modal-background"></div>
           <div class="modal-content">
             <p>
               Max time reached! <span class="has-text-danger">You lost.</span>
+            </p>
+            <button class="button is-primary mt-5" (click)="this.gameInit()">
+              Start Again
+            </button>
+          </div>
+          <button class="modal-close is-large" aria-label="close"></button>
+        </div>
+
+        <div
+          [class]="
+            this.currQuote >= this.maxQuotes
+              ? 'modal is-active'
+              : 'modal is-clipped'
+          "
+        >
+          <!-- Show modal when the game is completed -->
+          <div class="modal-background"></div>
+          <div class="modal-content">
+            <p class="mb-3">
+              <span class="has-text-success-dark has-text-weight-bold"
+                >Congratulations!</span
+              >
+            </p>
+            <p>You have finished all the quotes.</p>
+            <p>
+              Your final score is:
+              <span class="tag is-primary is-medium m-1">{{
+                this.score.toFixed(1)
+              }}</span>
             </p>
             <button class="button is-primary mt-5" (click)="this.gameInit()">
               Start Again
