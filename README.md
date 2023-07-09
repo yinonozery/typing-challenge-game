@@ -1,6 +1,6 @@
 # Typing Challenge Game
 <div align="center">
-<img src="https://im4.ezgif.com/tmp/ezgif-4-0824462f12.gif" />
+<img src="https://s12.gifyu.com/images/SWNV7.gif" />
 </div>
 
 ## Description
